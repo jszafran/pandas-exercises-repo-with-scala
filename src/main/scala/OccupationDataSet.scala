@@ -5,7 +5,6 @@ case class User(val id: Int, age: Int, gender: String, occupation: String, zipCo
 
 class DataProcessor(val filePath: String) {
   val users: List[User] = parseUsers()
-  def getUsers: List[User] = users
 
   private def parseUsers(): List[User] = {
     val textSource = io.Source.fromFile(filePath)
@@ -25,5 +24,18 @@ class DataProcessor(val filePath: String) {
 
 object Main extends App {
   val dp = new DataProcessor("./data/users.txt")
-  println(dp.users(1))
+  val users = dp.users
+
+  // Q1
+  println("Q: What is the number of observations in the dataset?")
+  println(s"A: ${users.length}")
+
+  // Q2
+  println("Q: How many different occupations are in this dataset?")
+  val q2Answer1 = users.map(_.occupation).toSet.size
+  val q2Answer2 = users.map(_.occupation).distinct.length
+  assert(q2Answer1 == q2Answer2)
+  println(s"A: ${q2Answer1}")
 }
+
+
