@@ -77,4 +77,12 @@ object Chipotle extends App {
     .map(_.quantity)
     .sum
   println(s"A: $itemsOrderedTotal")
+
+  // Q7
+  println("Q: How much was the revenue for the period in the dataset?")
+  val revenueAmountExact = orders
+    .map(o => o.quantity * o.price)
+    .sum
+  val revenueAmount = "%.2f".formatted(revenueAmountExact).toDouble
+  println(s"A: Revenue for the period in the dataset: $$$revenueAmount")
 }
