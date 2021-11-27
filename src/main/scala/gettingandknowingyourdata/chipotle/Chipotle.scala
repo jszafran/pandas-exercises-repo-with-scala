@@ -1,6 +1,8 @@
 package dev.jszafran
 package gettingandknowingyourdata.chipotle
 
+import utils.printBreak
+
 case class Order(id: Int, quantity: Int, itemName: String, choiceDescription: String, price: Double)
 
 object Chipotle extends App {
@@ -34,5 +36,10 @@ object Chipotle extends App {
   }
 
   val orders = parseDatasource("./src/main/scala/gettingandknowingyourdata/chipotle/dataset.tsv")
+
+  // Q1
+  println("Q: See the first 10 entries")
+  orders.take(10).foreach(println)
+  printBreak()
 
 }
