@@ -3,10 +3,9 @@ package dev.jszafran
 // data structure definition for text file row
 case class User(val id: Int, age: Int, gender: String, occupation: String, zipCode: String)
 
-class DataProcessor(val filePath: String) {
-  val users: List[User] = parseUsers()
 
-  private def parseUsers(): List[User] = {
+object Main extends App {
+  def parseUsers(filePath: String): List[User] = {
     val textSource = io.Source.fromFile(filePath)
     val lines = textSource.getLines.drop(1) // skip header
     val users = for (line <- lines) yield {
@@ -20,16 +19,12 @@ class DataProcessor(val filePath: String) {
     }
     users.toList
   }
-}
-
-object Main extends App {
   def printBreak(): Unit = {
     println("")
     println("")
   }
 
-  val dp = new DataProcessor("./data/users.txt")
-  val users = dp.users
+  val users = parseUsers("./data/users.txt")
 
   // Q1
   println("Q: What is the number of observations in the dataset?")
