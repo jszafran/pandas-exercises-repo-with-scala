@@ -47,13 +47,34 @@ object Chipotle extends App {
   println(s"A: Number of observations: ${orders.length}")
   printBreak()
 
-  // Q3
+  // Q3 & Q4
   println("Q: Which was the most-ordered item?")
+  println("Q: For the most-ordered item, how many items were ordered?")
   val mostOrderedItem = orders
     .groupBy(_.itemName)
     .transform((k, v) => v.map(_.quantity).sum)
     .toSeq
     .maxBy(_._2)
-  println(s"${mostOrderedItem._1} was ordered ${mostOrderedItem._2} times.")
+  println(s"A: ${mostOrderedItem._1} was ordered ${mostOrderedItem._2} times.")
   printBreak()
+
+  // Q5
+  println("Q: What was the most ordered item in the choice_description column?")
+  val q5Answer = orders
+    .filterNot(_.choiceDescription == "NULL")   // assume that nulls shouldn't be counted
+    .map(_.choiceDescription)
+    .groupBy(identity)
+    .transform((k, v) => v.size)
+    .toSeq
+    .maxBy(_._2)
+    ._1
+  println(s"A: Most ordered item by the choice description column: $q5Answer")
+  printBreak()
+
+  // Q6
+  println("Q: How many items were ordered in total")
+  val itemsOrderedTotal = orders
+    .map(_.quantity)
+    .sum
+  println(s"A: $itemsOrderedTotal")
 }
