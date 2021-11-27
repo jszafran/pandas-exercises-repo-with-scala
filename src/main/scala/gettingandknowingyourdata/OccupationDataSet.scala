@@ -1,4 +1,6 @@
 package dev.jszafran
+package gettingandknowingyourdata
+
 
 // data structure definition for text file row
 case class User(val id: Int, age: Int, gender: String, occupation: String, zipCode: String)
@@ -24,7 +26,7 @@ object Main extends App {
     println("")
   }
 
-  val users = parseUsers("./data/users.txt")
+  val users = parseUsers("./src/main/scala/gettingandknowingyourdata/dataset.txt")
 
   // Q1
   println("Q: What is the number of observations in the dataset?")
