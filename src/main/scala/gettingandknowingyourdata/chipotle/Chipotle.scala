@@ -42,4 +42,18 @@ object Chipotle extends App {
   orders.take(10).foreach(println)
   printBreak()
 
+  // Q2
+  println("Q: What is the number of observations in the dataset?")
+  println(s"A: Number of observations: ${orders.length}")
+  printBreak()
+
+  // Q3
+  println("Q: Which was the most-ordered item?")
+  val mostOrderedItem = orders
+    .groupBy(_.itemName)
+    .transform((k, v) => v.map(_.quantity).sum)
+    .toSeq
+    .maxBy(_._2)
+  println(s"${mostOrderedItem._1} was ordered ${mostOrderedItem._2} times.")
+  printBreak()
 }
