@@ -1,5 +1,5 @@
 package dev.jszafran
-package gettingandknowingyourdata
+package gettingandknowingyourdata.occupation
 
 
 // data structure definition for text file row
@@ -26,7 +26,7 @@ object Main extends App {
     println("")
   }
 
-  val users = parseUsers("./src/main/scala/gettingandknowingyourdata/dataset.txt")
+  val users = parseUsers("./src/main/scala/gettingandknowingyourdata/occupation/dataset.txt")
 
   // Q1
   println("Q: What is the number of observations in the dataset?")
