@@ -48,14 +48,31 @@ object Main extends App {
     .toSeq
     .maxBy(_._2)
     ._1
-  println(s"Most frequent occupation: $q3Answer")
+  println(s"A: Most frequent occupation: $q3Answer")
   printBreak()
 
   // Q4
   println("Q: What is the mean age of users?")
-  val ageMean = users.map(_.age).sum / users.length.toDouble
-  val ageMeanRounded = "%.2f".format(ageMean).toDouble
-  println(s"A: Users age mean: $ageMeanRounded")
+  val ageMean = users.map(_.age).sum / users.length
+  println(s"A: Users age mean: $ageMean")
+  printBreak()
+
+  // Q5
+  println("Q: What is the age with least occurrence?")
+  val leastOccurrence = users
+    .map(_.age)
+    .groupBy(identity)
+    .transform((k, v) => v.size)
+    .toSeq
+    .minBy(_._2)
+    ._2
+
+  val agesWithLeastOccurrence = users
+    .map(_.age)
+    .groupBy(identity)
+    .transform((k, v) => v.size)
+    .filter(_._2 == leastOccurrence)
+    .toSeq
+    .map(_._1)
+  println(s"Ages that occurred $leastOccurrence time(s): ${agesWithLeastOccurrence.mkString(", ")}")
 }
-
-
