@@ -1,7 +1,7 @@
 package dev.jszafran
 package gettingandknowingyourdata.chipotle
 
-import utils.printBreak
+import utils._
 
 case class Order(id: Int, quantity: Int, itemName: String, choiceDescription: String, price: Double)
 
@@ -80,9 +80,23 @@ object Chipotle extends App {
 
   // Q7
   println("Q: How much was the revenue for the period in the dataset?")
-  val revenueAmountExact = orders
+  val revenueAmount = orders
     .map(o => o.quantity * o.price)
     .sum
-  val revenueAmount = "%.2f".formatted(revenueAmountExact).toDouble
-  println(s"A: Revenue for the period in the dataset: $$$revenueAmount")
+  println(s"A: Revenue for the period in the dataset: $$${roundDouble(revenueAmount, 2)}")
+  printBreak()
+
+  // Q8
+  println("Q: How many orders were made in the period?")
+  val totalOrdersAmount = orders.map(_.id).distinct.length
+  println(s"A: Total amount of orders: $totalOrdersAmount")
+  printBreak()
+
+  // Q9
+  println("Q: What is the average revenue amount per order?")
+  val revenuePerOrder = orders
+    .groupBy(_.id)
+    .transform((k, v) => v.map(o => o.quantity * o.price).sum)
+  val averageRevenuePerOrder = revenuePerOrder.toSeq.map(_._2).sum / revenuePerOrder.size
+  println(s"A: Average revenue per order $$${roundDouble(averageRevenuePerOrder, 2)}")
 }
