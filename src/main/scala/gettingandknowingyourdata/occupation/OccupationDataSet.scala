@@ -1,6 +1,8 @@
 package dev.jszafran
 package gettingandknowingyourdata.occupation
 
+import utils.printBreak
+
 
 // data structure definition for text file row
 case class User(val id: Int, age: Int, gender: String, occupation: String, zipCode: String)
@@ -20,10 +22,6 @@ object Main extends App {
         zipCode=lineData(4))
     }
     users.toList
-  }
-  def printBreak(): Unit = {
-    println("")
-    println("")
   }
 
   val users = parseUsers("./src/main/scala/gettingandknowingyourdata/occupation/dataset.txt")
