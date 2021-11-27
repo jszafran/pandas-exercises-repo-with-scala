@@ -51,6 +51,11 @@ object Main extends App {
   println(s"Most frequent occupation: $q3Answer")
   printBreak()
 
+  // Q4
+  println("Q: What is the mean age of users?")
+  val ageMean = users.map(_.age).sum / users.length.toDouble
+  val ageMeanRounded = "%.2f".format(ageMean).toDouble
+  println(s"A: Users age mean: $ageMeanRounded")
 }
 
 
