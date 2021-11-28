@@ -5,6 +5,18 @@ import parsers.AlcoholConsumptionParser
 
 import dev.jszafran.utils.printBreak
 
+case class ContinentAlcoholConsumptionStats(
+                                             name: String,
+                                             beerServings: Double,
+                                             spiritServings: Double,
+                                             wineServings: Double,
+                                             totalLitresOfPureAlcohol: Double,
+                                           ) {
+  def displayStats(): Unit = {
+    println(s"Continent $name | beer: $beerServings | spirit: $spiritServings | wine: $wineServings | total pure alc: $totalLitresOfPureAlcohol")
+  }
+}
+
 object AlcoholConsumption extends App {
   val countriesAlcData = AlcoholConsumptionParser.parseData("./datasets/AlcoholConsumption.csv")
 
@@ -32,4 +44,22 @@ object AlcoholConsumption extends App {
     .toSeq
   println("Wine consumption data per continent:")
   q2Answer.foreach(println)
+  printBreak()
+
+  // Q3
+  println("Q: Print the mean alcohol consumption per continent for every column")
+  val q3Answer = countriesAlcData
+    .groupBy(_.continent)
+    .transform((k, v) => {
+      ContinentAlcoholConsumptionStats(
+        name = k,
+        beerServings = v.map(_.beerServings).sum / v.length.toDouble,
+        wineServings = v.map(_.wineServings).sum / v.length.toDouble,
+        spiritServings = v.map(_.spiritServings).sum / v.length.toDouble,
+        totalLitresOfPureAlcohol = v.map(_.totalLitresOfPureAlcohol).sum / v.length.toDouble
+      )
+    })
+    .toSeq
+    .map(_._2)
+  q3Answer.foreach(_.displayStats())
 }
