@@ -3,7 +3,7 @@ package exercises.grouping.alcoholconsumption
 
 import parsers.AlcoholConsumptionParser
 
-import dev.jszafran.utils.printBreak
+import utils.{medianInt, medianDouble, printBreak}
 
 case class ContinentAlcoholConsumptionStats(
                                              name: String,
@@ -16,6 +16,7 @@ case class ContinentAlcoholConsumptionStats(
     println(s"Continent $name | beer: $beerServings | spirit: $spiritServings | wine: $wineServings | total pure alc: $totalLitresOfPureAlcohol")
   }
 }
+
 
 object AlcoholConsumption extends App {
   val countriesAlcData = AlcoholConsumptionParser.parseData("./datasets/AlcoholConsumption.csv")
@@ -62,4 +63,43 @@ object AlcoholConsumption extends App {
     .toSeq
     .map(_._2)
   q3Answer.foreach(_.displayStats())
+  printBreak()
+
+  // Q4
+  println("Q: Print the median alcohol consumption per continent for every column")
+  val q4Answer = countriesAlcData
+    .groupBy(_.continent)
+    .transform((k, v) => {
+      ContinentAlcoholConsumptionStats(
+        name = k,
+        beerServings = medianInt(v.map(_.beerServings)),
+        wineServings = medianInt(v.map(_.wineServings)),
+        spiritServings = medianInt(v.map(_.spiritServings)),
+        totalLitresOfPureAlcohol = medianDouble(v.map(_.totalLitresOfPureAlcohol))
+      )
+    })
+    .toSeq
+    .map(_._2)
+  q4Answer.foreach(_.displayStats())
+  printBreak()
+
+  // Q5
+  println("Q: Print the mean, min and max values for spirit consumption.")
+  case class MeanMaxMin(continentCode: String, mean: Double, min: Int, max: Int) {
+    def display(): Unit = println(s"Continent $continentCode | mean: $mean | min: $min | max: $max")
+  }
+  val q5Answer = countriesAlcData
+    .groupBy(_.continent)
+    .transform((k, v) => {
+      val ss = v.map(_.spiritServings)
+      MeanMaxMin(
+        continentCode = k,
+        mean = ss.sum / v.length.toDouble,
+        min = ss.min,
+        max = ss.max
+      )
+    })
+    .toSeq
+    .map(_._2)
+  q5Answer.foreach(_.display())
 }

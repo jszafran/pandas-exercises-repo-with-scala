@@ -1,8 +1,9 @@
-package dev.jszafran.exercises.filteringandsorting.fictionalarmy
+package dev.jszafran
+package exercises.filteringandsorting.fictionalarmy
 
-import dev.jszafran.parsers.FictionalArmyParser
+import parsers.FictionalArmyParser
 
-import dev.jszafran.utils.printBreak
+import utils.printBreak
 
 object FictionalArmy extends App {
   val regiments = FictionalArmyParser.parseData("./datasets/fictional_army.csv")
