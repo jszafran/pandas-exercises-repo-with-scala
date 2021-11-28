@@ -1,7 +1,6 @@
-package dev.jszafran
-package fictionalarmy
+package dev.jszafran.exercises.filteringandsorting.fictionalarmy
 
-import parsers.FictionalArmyParser
+import dev.jszafran.parsers.FictionalArmyParser
 
 import dev.jszafran.utils.printBreak
 

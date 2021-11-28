@@ -1,15 +1,11 @@
 package dev.jszafran
-package gettingandknowingyourdata.occupation
+package exercises.gettingandknowingyourdata.occupation
 
 import utils.printBreak
-
-import dev.jszafran.parsers.OccupationParser
-
-
-// data structure definition for text file row
+import parsers.OccupationParser
 
 
-object Main extends App {
+object Occupation extends App {
   val users = OccupationParser.parseData("./datasets/occupation.txt")
 
   // Q1

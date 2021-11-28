@@ -1,7 +1,6 @@
-package dev.jszafran
-package gettingandknowingyourdata.chipotle
+package dev.jszafran.exercises.gettingandknowingyourdata.chipotle
 
-import utils._
+import dev.jszafran.utils._
 
 import dev.jszafran.parsers.ChipotleParser
 

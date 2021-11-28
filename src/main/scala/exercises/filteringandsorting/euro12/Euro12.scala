@@ -1,9 +1,9 @@
 package dev.jszafran
-package filteringandsorting.euro12
+package exercises.filteringandsorting.euro12
 
 import parsers.EuroTeamsDataParser
 
-import dev.jszafran.utils.printBreak
+import utils.printBreak
 
 object Euro12 extends App {
   val teams = EuroTeamsDataParser.parseData("./datasets/Euro_2012_stats_TEAM.csv")
