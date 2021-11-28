@@ -8,7 +8,7 @@ object ChipotleParser {
     price.replace("$", "").toDouble
   }
 
-  private def parseLine(line: String): Order = {
+  private def lineParsingFunc(line: String): Order = {
     val lineSplit = line.split("\t")
     val id = lineSplit(0)
     val quantity = lineSplit(1)
@@ -27,9 +27,9 @@ object ChipotleParser {
   }
 
   def parseData(filePath: String): List[Order] = {
-    val textSource = io.Source.fromFile(filePath)
-    val lines = textSource.getLines.drop(1)
-    val orders = for (line <- lines) yield parseLine(line)
-    orders.toList
+    GenericTextParser.parseData[Order](
+      filePath = filePath,
+      lineParsingFunc = lineParsingFunc
+    )
   }
 }

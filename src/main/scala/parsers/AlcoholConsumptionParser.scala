@@ -11,20 +11,22 @@ case class CountryAlcoholData(
                       )
 
 object AlcoholConsumptionParser {
+  private def lineParsingFunc(line: String): CountryAlcoholData = {
+    val ls = line.split(",")
+    CountryAlcoholData(
+      name = ls(0),
+      beerServings = ls(1).toInt,
+      spiritServings = ls(2).toInt,
+      wineServings = ls(3).toInt,
+      totalLitresOfPureAlcohol = ls(4).toDouble,
+      continent = ls(5)
+    )
+  }
+
   def parseData(filePath: String): List[CountryAlcoholData] = {
-    val source = io.Source.fromFile(filePath)
-    val lines = source.getLines.drop(1)
-    val countriesAlcoholData = for (line <- lines) yield {
-      val ls = line.split(",")
-      CountryAlcoholData(
-        name = ls(0),
-        beerServings = ls(1).toInt,
-        spiritServings = ls(2).toInt,
-        wineServings = ls(3).toInt,
-        totalLitresOfPureAlcohol = ls(4).toDouble,
-        continent = ls(5)
-      )
-    }
-    countriesAlcoholData.toList
+    GenericTextParser.parseData[CountryAlcoholData](
+      filePath = filePath,
+      lineParsingFunc = lineParsingFunc
+    )
   }
 }
