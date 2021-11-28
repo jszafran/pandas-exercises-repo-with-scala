@@ -10,8 +10,6 @@ import dev.jszafran.parsers.OccupationParser
 
 
 object Main extends App {
-
-
   val users = OccupationParser.parseData("./datasets/occupation.txt")
 
   // Q1
