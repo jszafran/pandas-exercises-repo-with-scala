@@ -7,9 +7,7 @@ import dev.jszafran.parsers.ChipotleParser
 
 
 object Chipotle extends App {
-
-
-  val orders = ChipotleParser.parseData("./src/main/scala/gettingandknowingyourdata/chipotle/dataset.tsv")
+  val orders = ChipotleParser.parseData("./datasets/Chipotle.tsv")
 
   // Q1
   println("Q: See the first 10 entries")

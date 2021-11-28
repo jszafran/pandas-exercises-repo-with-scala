@@ -3,28 +3,16 @@ package gettingandknowingyourdata.occupation
 
 import utils.printBreak
 
+import dev.jszafran.parsers.OccupationParser
+
 
 // data structure definition for text file row
-case class User(val id: Int, age: Int, gender: String, occupation: String, zipCode: String)
 
 
 object Main extends App {
-  def parseUsers(filePath: String): List[User] = {
-    val textSource = io.Source.fromFile(filePath)
-    val lines = textSource.getLines.drop(1) // skip header
-    val users = for (line <- lines) yield {
-      val lineData = line.split("\\|")
-      User(
-        id=lineData(0).toInt,
-        age=lineData(1).toInt,
-        gender=lineData(2),
-        occupation=lineData(3),
-        zipCode=lineData(4))
-    }
-    users.toList
-  }
 
-  val users = parseUsers("./src/main/scala/gettingandknowingyourdata/occupation/dataset.txt")
+
+  val users = OccupationParser.parseData("./datasets/occupation.txt")
 
   // Q1
   println("Q: What is the number of observations in the dataset?")
