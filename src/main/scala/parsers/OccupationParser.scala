@@ -1,21 +1,26 @@
 package dev.jszafran
 package parsers
 
-case class User(val id: Int, age: Int, gender: String, occupation: String, zipCode: String)
+case class User(id: Int, age: Int, gender: String, occupation: String, zipCode: String)
+
 
 object OccupationParser {
+  private def lineParsingFunc(line: String): User = {
+    val ls = line.split("\\|")
+    User(
+      id=ls(0).toInt,
+      age=ls(1).toInt,
+      gender=ls(2),
+      occupation=ls(3),
+      zipCode=ls(4)
+    )
+  }
+
   def parseData(filePath: String): List[User] = {
-    val textSource = io.Source.fromFile(filePath)
-    val lines = textSource.getLines.drop(1) // skip header
-    val users = for (line <- lines) yield {
-      val lineData = line.split("\\|")
-      User(
-        id=lineData(0).toInt,
-        age=lineData(1).toInt,
-        gender=lineData(2),
-        occupation=lineData(3),
-        zipCode=lineData(4))
-    }
-    users.toList
+    GenericTextParser.parseData[User](
+      filePath = filePath,
+      lineParsingFunc = lineParsingFunc,
+      skipHeader = true
+    )
   }
 }
