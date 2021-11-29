@@ -42,7 +42,27 @@ object Occupation extends App {
 
   // Q4
   println("For each combination of occupation and gender, calculate the mean age")
+  val q4Answer = users
+    .groupBy(u => (u.occupation, u.gender))
+    .transform((k, v) => v.map(_.age).sum / v.length)
+    .toSeq
+    .sortBy(_._1._1)
+  q4Answer.foreach(println)
+  printBreak()
+
 
   // Q5
   println("For each occupation present the percentage of women and men")
+  val q5Answer = users
+    .groupBy(_.occupation)
+    .transform((k, v) => {
+      val maleCount = v.count(_.gender == "M")
+      val femaleCount = v.count(_.gender == "F")
+      (femaleCount / v.length.toDouble, maleCount / v.length.toDouble)
+    })
+    .toSeq
+    .sortBy(_._2._1)
+    .reverse
+   q5Answer.foreach(println)
+
 }
